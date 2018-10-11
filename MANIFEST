@@ -4,6 +4,6 @@ README.md
 long-description.txt
 setup.cfg
 setup.py
-rainbow/__init__.py
-rainbow/rainbow.py
-rainbow/test.py
+test.py
+rainbowbridge/__init__.py
+rainbowbridge/rainbow.py

@@ -88,3 +88,6 @@ def RainbowLogger(name=None, no_time=False, new_logging=None):
   logger.setLevel(_logging_module.DEBUG)
 
   return logger
+
+def __init__():
+  return RainbowLogger

@@ -1,4 +1,4 @@
-from rainbow import RainbowLogger
+from rainbowbridge import RainbowLogger
 
 if __name__ == '__main__':
   logger = RainbowLogger(__name__)
