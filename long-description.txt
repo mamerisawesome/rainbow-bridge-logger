@@ -1,5 +1,0 @@
-Rainbow Bridge Logger
-
-A wrapper for the native logging module of Python. Added improved coloring and out of the box datetime stamp and file source.
-
-Author: Almer T. Mendoza
