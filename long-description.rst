@@ -19,6 +19,5 @@ A wrapper for the native logging module of Python.
 
 Which should output this:
 
-.. image:: res/rainbow-logger-output.png
-   :scale: 100%
+.. image:: https://github.com/mamerisawesome/rainbow-bridge-logger/blob/master/res/rainbow-logger-output.png
    :alt: output of logger
