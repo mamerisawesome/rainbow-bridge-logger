@@ -2,6 +2,12 @@
 
 A wrapper for the native logging module of Python.
 
+## Installation
+
+```sh
+pip install rainbow-bridge-logger # or pip3
+```
+
 ## Usage
 
 ```python
@@ -21,14 +27,30 @@ Which should output the following:
 
 ![Output for logger](/res/rainbow-logger-output.png)
 
+
+### Options
+
+#### Unset time in logging
+
+```python
+logger = RainbowLogger(no_time=False)
+```
+
+#### Custom naming
+
+```python
+logger = RainbowLogger('my_logger')
+```
+
 ## Todo
 
 - [ ] Improve possible arguments to be passed
+  - [ ] Added no_time argument to remove timestamps
 - [ ] Add capability for custom formats and coloring
 - [ ] Improve pathing for module
 - [ ] Allow easy integration with other frameworks that uses logging
-- [ ] Publish to pip to be usable anywhere
-- [ ] Create installation section
+- [x] Publish to pip to be usable anywhere
+- [x] Create installation section
 - [x] Improve README
 - [x] Create usage section
 

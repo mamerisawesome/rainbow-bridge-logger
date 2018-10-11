@@ -5,5 +5,5 @@ long-description.txt
 setup.cfg
 setup.py
 test.py
-rainbowlogger/__init__.py
-rainbowlogger/rainbow.py
+rainbow/__init__.py
+rainbow/rainbow.py
