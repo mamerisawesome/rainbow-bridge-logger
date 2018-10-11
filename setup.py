@@ -1,7 +1,7 @@
 from distutils.core import setup
 
 setup(
-    name='rainbow-bridge',
+    name='rainbow-logger',
     version='0.1',
     description='Improved logger based on Python\'s logging module',
     packages=['rainbow',],
