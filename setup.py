@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='rainbowbridge',
-    version='0.2',
+    version='0.1',
     description='Improved logger based on Python\'s logging module',
     packages=['rainbowbridge',],
     license='MIT',
