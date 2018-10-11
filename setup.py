@@ -4,7 +4,7 @@ setup(
     name='rainbowlogger',
     version='0.1',
     description='Improved logger based on Python\'s logging module',
-    packages=['rainbowbridge',],
+    packages=['rainbowlogger',],
     license='MIT',
     url = 'https://github.com/mamerisawesome/rainbow-bridge-logger',
     download_url='https://github.com/mamerisawesome/rainbow-bridge-logger/archive/v_0.1.tar.gz',
