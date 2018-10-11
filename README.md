@@ -8,15 +8,13 @@ A wrapper for the native logging module of Python.
 
 ## Todo
 
-<ul>
-<li><input type="checkbox" disabled> - Improve possible arguments to be passed </br></li>
-<li><input type="checkbox" disabled> - Add capability for custom formats and coloring </br></li>
-<li><input type="checkbox" disabled> - Improve pathing for module </br></li>
-<li><input type="checkbox" disabled> - Improve README </br></li>
-<li><input type="checkbox" disabled> - Publish to pip to be usable anywhere </br></li>
-<li><input type="checkbox" disabled> - Create installation section </br></li>
-<li><input type="checkbox" disabled> - Create usage section </br></li>
-</ul>
+[ ] - Improve possible arguments to be passed
+[ ] - Add capability for custom formats and coloring
+[ ] - Improve pathing for module
+[ ] - Improve README
+[ ] - Publish to pip to be usable anywhere
+[ ] - Create installation section
+[ ] - Create usage section
 
 ## Author
 
