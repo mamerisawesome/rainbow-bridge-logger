@@ -2,3 +2,4 @@ include long-description.txt
 include README.md
 include LICENSE.txt
 include test.py
+include res/rainbow-logger-output.png
