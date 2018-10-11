@@ -16,8 +16,3 @@ A wrapper for the native logging module of Python.
     logger.warning('my warn')
     logger.error('my error')
     logger.debug('my debug')
-
-Which should output this:
-
-.. image:: https://github.com/mamerisawesome/rainbow-bridge-logger/blob/master/res/rainbow-logger-output.png
-   :alt: output of logger
