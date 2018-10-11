@@ -54,6 +54,10 @@ logger = RainbowLogger('my_logger')
 - [x] Improve README
 - [x] Create usage section
 
+## Note
+
+Tested on both Python 2.7 and Python 3.6
+
 ## Author
 
 - Almer T. Mendoza

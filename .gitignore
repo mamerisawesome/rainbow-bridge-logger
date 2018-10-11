@@ -1,2 +1,5 @@
 dist/*
+
+# python trash
 __pycache__
+*.pyc
