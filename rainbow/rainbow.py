@@ -4,29 +4,77 @@
 """
 import logging
 
-def RainbowLogger(name=None, no_time=False):
+_logging_module = None
+
+def _get_color(color=None):
+  """
+  Get color name from pre-defined color list
+  """
+  if color is None and not color:
+    raise ValueError('Must have color code')
+
+  colors = {
+    'PURPLE':'\033[96m',
+    'MAGENTA':'\033[95m',
+    'BLUE':'\033[94m',
+    'GREEN':'\033[92m',
+    'YELLOW':'\033[93m',
+    'RED':'\033[91m',
+    'DARKGRAY':'\033[90m',
+    'GREY':'\033[0m',
+    'WHITE':'\033[1m'
+  }
+
+  if color not in colors:
+    raise KeyError('Use a proper color name: {}'.format(list(colors.keys())))
+
+  return colors[color]
+
+def _set_level_format(level=None, color='WHITE'):
+  """
+  Set logging format based on level and color
+  """
+  global _logging_module
+
+  FORMAT = '{}{}{}'
+  _logging_module.addLevelName(
+    level if level is not None else _logging_module.DEBUG,
+    FORMAT.format(
+      _get_color(color),
+      _logging_module.getLevelName(level),
+      _get_color('GREY')
+    )
+  )
+
+def RainbowLogger(name=None, no_time=False, new_logging=None):
   """
   A customized logger built on top of Python's logging
   """
-  MAGENTA = '\033[95m'
-  BLUE = '\033[94m'
-  GREEN = '\033[92m'
-  YELLOW = '\033[93m'
-  RED = '\033[91m'
-  GREY = '\033[0m'
-  WHITE = '\033[1m'
+  global _logging_module
 
-  logging.addLevelName(logging.DEBUG, '{}{}\t{}'.format(WHITE, logging.getLevelName(logging.DEBUG), GREY))
-  logging.addLevelName(logging.INFO, '{}{}\t{}'.format(GREEN, logging.getLevelName(logging.INFO), GREY))
-  logging.addLevelName(logging.WARNING, '{}{}\t{}'.format(YELLOW, logging.getLevelName(logging.WARNING), GREY))
-  logging.addLevelName(logging.ERROR, '{}{}\t{}'.format(RED, logging.getLevelName(logging.ERROR), GREY))
-  logging.addLevelName(logging.CRITICAL, '{}{}\t{}'.format(MAGENTA, logging.getLevelName(logging.CRITICAL), GREY))
+  _logging_module = logging
+  if new_logging is not None:
+    _logging_module = new_logging
 
-  logger = logging.getLogger(__name__ if name is None else name)
-  handler = logging.StreamHandler()
-  formatter = logging.Formatter('{}%(asctime)s %(name)-12s %(levelname)-8s %(message)s{}'.format(BLUE, GREY))
+  _set_level_format(_logging_module.DEBUG, 'BLUE')
+  _set_level_format(_logging_module.INFO, 'GREEN')
+  _set_level_format(_logging_module.WARNING, 'YELLOW')
+  _set_level_format(_logging_module.ERROR, 'RED')
+  _set_level_format(_logging_module.CRITICAL, 'MAGENTA')
+
+  logger = _logging_module.getLogger(__name__ if name is None else name)
+  handler = _logging_module.StreamHandler()
+  formatter = _logging_module.Formatter(
+    '{}%(asctime)s {}%(name)-12s{} %(levelname)-8s\t%(message)s{}'.format(
+      _get_color('DARKGRAY'),
+      _get_color('PURPLE'),
+      _get_color('GREY'),
+      _get_color('GREY')
+    )
+  )
+
   handler.setFormatter(formatter)
   logger.addHandler(handler)
-  logger.setLevel(logging.DEBUG)
+  logger.setLevel(_logging_module.DEBUG)
 
   return logger
