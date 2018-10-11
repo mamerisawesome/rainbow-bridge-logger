@@ -37,14 +37,22 @@ def _set_level_format(level=None, color='WHITE'):
   global _logging_module
 
   FORMAT = '{}{}{}'
-  _logging_module.addLevelName(
-    level if level is not None else _logging_module.DEBUG,
-    FORMAT.format(
-      _get_color(color),
-      _logging_module.getLevelName(level),
-      _get_color('GREY')
-    )
+  parsed_format = FORMAT.format(
+    _get_color(color),
+    _logging_module.getLevelName(level),
+    _get_color('GREY')
   )
+
+  if _logging_module.DEBUG is not None:
+    parsed_level = _logging_module.DEBUG
+
+  if level is not None:
+    parsed_level = level
+
+  if parsed_level is not None:
+    _logging_module.addLevelName(parsed_level, parsed_format)
+
+  return True
 
 def RainbowLogger(name=None, no_time=False, new_logging=None):
   """
@@ -56,11 +64,20 @@ def RainbowLogger(name=None, no_time=False, new_logging=None):
   if new_logging is not None:
     _logging_module = new_logging
 
-  _set_level_format(_logging_module.DEBUG, 'BLUE')
-  _set_level_format(_logging_module.INFO, 'GREEN')
-  _set_level_format(_logging_module.WARNING, 'YELLOW')
-  _set_level_format(_logging_module.ERROR, 'RED')
-  _set_level_format(_logging_module.CRITICAL, 'MAGENTA')
+  if _logging_module.DEBUG:
+    _set_level_format(_logging_module.DEBUG, 'BLUE')
+
+  if _logging_module.INFO:
+    _set_level_format(_logging_module.INFO, 'GREEN')
+
+  if _logging_module.WARNING:
+    _set_level_format(_logging_module.WARNING, 'YELLOW')
+
+  if _logging_module.ERROR:
+    _set_level_format(_logging_module.ERROR, 'RED')
+
+  if _logging_module.CRITICAL:
+    _set_level_format(_logging_module.CRITICAL, 'MAGENTA')
 
   logger = _logging_module.getLogger(__name__ if name is None else name)
   handler = _logging_module.StreamHandler()
