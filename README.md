@@ -45,7 +45,7 @@ logger = RainbowLogger('my_logger')
 ## Todo
 
 - [ ] Improve possible arguments to be passed
-  - [ ] Added no_time argument to remove timestamps
+  - [x] Added no_time argument to remove timestamps
 - [ ] Add capability for custom formats and coloring
 - [ ] Improve pathing for module
 - [ ] Allow easy integration with other frameworks that uses logging
