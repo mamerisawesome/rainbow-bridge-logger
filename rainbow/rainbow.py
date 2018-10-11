@@ -7,9 +7,7 @@ import logging
 _logging_module = None
 
 def _get_color(color=None):
-  """
-  Get color name from pre-defined color list
-  """
+  """Get color name from pre-defined color list"""
   if color is None and not color:
     raise ValueError('Must have color code')
 
@@ -30,10 +28,17 @@ def _get_color(color=None):
 
   return colors[color]
 
+def _get_message():
+  """Get message parts"""
+  return [
+    '{}%(asctime)s{}'.format(_get_color('DARKGRAY'), _get_color('GREY')),
+    '{}%(name)-12s{}'.format(_get_color('PURPLE'), _get_color('GREY')),
+    '%(levelname)-8s',
+    '%(message)s'
+  ]
+
 def _set_level_format(level=None, color='WHITE'):
-  """
-  Set logging format based on level and color
-  """
+  """Set logging format based on level and color"""
   global _logging_module
 
   FORMAT = '{}{}{}'
@@ -55,40 +60,28 @@ def _set_level_format(level=None, color='WHITE'):
   return True
 
 def RainbowLogger(name=None, no_time=False, new_logging=None):
-  """
-  A customized logger built on top of Python's logging
-  """
+  """A customized logger built on top of Python's logging"""
   global _logging_module
 
   _logging_module = logging
   if new_logging is not None:
     _logging_module = new_logging
 
-  if _logging_module.DEBUG:
-    _set_level_format(_logging_module.DEBUG, 'BLUE')
-
-  if _logging_module.INFO:
-    _set_level_format(_logging_module.INFO, 'GREEN')
-
-  if _logging_module.WARNING:
-    _set_level_format(_logging_module.WARNING, 'YELLOW')
-
-  if _logging_module.ERROR:
-    _set_level_format(_logging_module.ERROR, 'RED')
-
-  if _logging_module.CRITICAL:
-    _set_level_format(_logging_module.CRITICAL, 'MAGENTA')
+  _set_level_format(_logging_module.DEBUG, 'BLUE')
+  _set_level_format(_logging_module.INFO, 'GREEN')
+  _set_level_format(_logging_module.WARNING, 'YELLOW')
+  _set_level_format(_logging_module.ERROR, 'RED')
+  _set_level_format(_logging_module.CRITICAL, 'MAGENTA')
 
   logger = _logging_module.getLogger(__name__ if name is None else name)
   handler = _logging_module.StreamHandler()
-  formatter = _logging_module.Formatter(
-    '{}%(asctime)s {}%(name)-12s{} %(levelname)-8s\t%(message)s{}'.format(
-      _get_color('DARKGRAY'),
-      _get_color('PURPLE'),
-      _get_color('GREY'),
-      _get_color('GREY')
-    )
-  )
+  (time, name, level, message) = _get_message()
+  final_message = '{} {} {}\t{}'.format(time, name, level, message)
+
+  if no_time:
+    final_message = '{} {}\t{}'.format(name, level, message)
+
+  formatter = _logging_module.Formatter(final_message)
 
   handler.setFormatter(formatter)
   logger.addHandler(handler)
