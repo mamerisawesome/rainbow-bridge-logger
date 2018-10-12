@@ -1,6 +1,6 @@
 # Rainbow Bridge Logger
 
-A wrapper for the native logging module of Python.
+A wrapper for the native logging module of Python. Take note that colors are taken from ANSI and may not work as expected with Windows system.
 
 ## Installation
 
