@@ -70,6 +70,7 @@ def RainbowLogger(name=None, no_time=False, new_logging=None):
   _set_level_format(_logging_module.DEBUG, 'BLUE')
   _set_level_format(_logging_module.INFO, 'GREEN')
   _set_level_format(_logging_module.WARNING, 'YELLOW')
+  _set_level_format(_logging_module.WARN, 'YELLOW')
   _set_level_format(_logging_module.ERROR, 'RED')
   _set_level_format(_logging_module.CRITICAL, 'MAGENTA')
 
