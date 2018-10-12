@@ -49,6 +49,7 @@ logger = RainbowLogger('my_logger')
 - [ ] Add capability for custom formats and coloring
 - [ ] Improve pathing for module
 - [ ] Allow easy integration with other frameworks that uses logging
+- [ ] Enable with Windows (ANSI to Win32 color codes)
 - [x] Publish to pip to be usable anywhere
 - [x] Create installation section
 - [x] Improve README
