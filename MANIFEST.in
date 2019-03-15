@@ -1,5 +1,0 @@
-include long-description.rst
-include README.md
-include LICENSE.txt
-include test.py
-include res/rainbow-logger-output.png
