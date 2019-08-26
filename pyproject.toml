@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "rainbow-bridge-logger"
-version = "0.5.0"
+version = "0.6.0"
 description = "Improved wrapper for native logger of Python 3"
 authors = ["Almer Mendoza <atmalmer23@gmail.com>"]
 readme = "long-description.rst"
