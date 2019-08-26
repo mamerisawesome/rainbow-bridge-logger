@@ -3,7 +3,7 @@ import os
 def _get_color(color=None):
   """Get color name from pre-defined color list"""
   from .rainbow import _is_no_color
-  if 'RAINBOW_LOGGER_NO_COLOR' in os.environ and os.environ['RAINBOW_LOGGER_NO_COLOR'] == 'false':
+  if 'RAINBOW_LOGGER_NO_COLOR' in os.environ and os.environ['RAINBOW_LOGGER_NO_COLOR'] == 'true':
     return ''
 
   if _is_no_color:
@@ -36,7 +36,7 @@ def _get_message(no_time=False):
   level = '%(levelname)-8s'
   message = '%(message)s'
 
-  if 'RAINBOW_LOGGER_NO_TIME' in os.environ and os.environ['RAINBOW_LOGGER_NO_TIME'] == 'false':
+  if 'RAINBOW_LOGGER_NO_TIME' in os.environ and os.environ['RAINBOW_LOGGER_NO_TIME'] == 'true':
     return ''
 
   if no_time:
