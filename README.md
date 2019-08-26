@@ -33,7 +33,7 @@ Which should output the following:
 
 ```python
 # bash option
-RAINBOW_LOGGER_NO_TIME=false python program.py
+RAINBOW_LOGGER_NO_TIME=true python program.py
 
 # programmatical option
 logger = RainbowLogger(no_time=False)
@@ -43,7 +43,7 @@ logger = RainbowLogger(no_time=False)
 
 ```python
 # bash option
-RAINBOW_LOGGER_NO_COLOR=false python program.py
+RAINBOW_LOGGER_NO_COLOR=true python program.py
 
 # programmatical option
 logger = RainbowLogger(no_time=False)
