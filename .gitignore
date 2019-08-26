@@ -3,3 +3,7 @@ dist/*
 # python trash
 __pycache__
 *.pyc
+*.egg-info
+
+# quick virtualenv location if needed
+py_modules
