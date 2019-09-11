@@ -1,11 +1,11 @@
 [tool.poetry]
 name = "rainbow-bridge-logger"
-version = "0.4.0"
+version = "0.6.0"
 description = "Improved wrapper for native logger of Python 3"
 authors = ["Almer Mendoza <atmalmer23@gmail.com>"]
 readme = "long-description.rst"
 repository = "https://github.com/mamerisawesome/rainbow-bridge-logger"
-keywords = ["logging", "colored", "logger", "python", "rainbow"]
+keywords = ["logging", "colored", "logger", "python", "rainbow", "logging-wrapper"]
 packages = [ { include = "rainbow" } ]
 license = "MIT"
 include = [

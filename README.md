@@ -27,12 +27,38 @@ Which should output the following:
 
 ![Output for logger](/res/rainbow-logger-output.png)
 
-
 ### Options
 
 #### Unset time in logging
 
 ```python
+# bash option
+RAINBOW_LOGGER_NO_TIME=true python program.py
+
+# programmatical option
+logger = RainbowLogger(no_time=False)
+```
+
+#### Unset color in logging
+
+```python
+# bash option
+RAINBOW_LOGGER_NO_COLOR=true python program.py
+
+# programmatical option
+logger = RainbowLogger(no_time=False)
+```
+
+#### Set log level to a certain level only
+
+```python
+# run file from bash to only handle warnings and errors
+RAINBOW_LOGGER_ON_WARN=true python program.py
+
+# OR error-only logs
+RAINBOW_LOGGER_ON_ERROR=true python program.py
+
+# program.py
 logger = RainbowLogger(no_time=False)
 ```
 

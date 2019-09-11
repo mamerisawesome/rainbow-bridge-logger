@@ -1,6 +1,2 @@
-__version__ = '0.4.0'
-
-try:
-  from rainbow.rainbow import RainbowLogger
-except ImportError:
-  from rainbow import RainbowLogger
+__version__ = '0.6.0'
+from .rainbow import RainbowLogger
