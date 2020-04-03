@@ -1,33 +1,33 @@
-"""
-:Author: Almer Mendoza
-:Since: 10/10/2018
-:Updated:
-  - 08/26/2019: Environment level configurations
-"""
 import os
-from .helpers import _set_level_format, _get_message
+import sys
+from .helpers import _set_level_format
+from .helpers import _get_message
 
-_logging_module = None
-_is_no_color = False
 
 class RainbowLogger:
   """A customized logger built on top of Python's logging"""
-  def __new__(self,
-              name=None,
-              no_time=False,
-              no_color=False,
-              new_logging=None,
-              filepath=None,
-              log_level=None,
-              get_logging=False):
+  def __new__(
+    cls,
+    name=None,
+    no_time=False,
+    no_color=False,
+    new_logging=None,
+    filepath=None,
+    log_level=None,
+    get_logging=False
+  ):
     import logging
-    global _logging_module
-    global _is_no_color
 
-    _is_no_color = no_color
+
+    if not log_level:
+      log_level = logging.DEBUG
+
     _logging_module = logging
     if new_logging is not None:
       _logging_module = new_logging
+
+    if filepath:
+      no_color = True
 
     level_color_mapping = [
       {"level": _logging_module.DEBUG, "color": "BLUE"},
@@ -38,46 +38,66 @@ class RainbowLogger:
     ]
 
     for l in level_color_mapping:
-      _set_level_format(level=l['level'],
-                        color=l['color'],
-                        logging_module=_logging_module)
+      _set_level_format(
+        level=l['level'],
+        color=l["color"],
+        no_color=no_color,
+        logging_module=_logging_module
+      )
 
-    if name is None:
-      logger = _logging_module
-    else:
-      logger = _logging_module.getLogger(name)
+    logger = _logging_module.getLogger(name)
+    logger.setLevel(log_level)
 
-    handler = _logging_module.StreamHandler()
-    final_message = _get_message(no_time)
-    formatter = _logging_module.Formatter(final_message)
-
-    handler.setFormatter(formatter)
     log_level = log_level if log_level else _logging_module.DEBUG
-    if 'RAINBOW_LOGGER_ON_WARN' in os.environ and os.environ['RAINBOW_LOGGER_ON_WARN'] == 'true':
-      log_level = _logging_module.WARN
+    if 'RAINBOW_LEVEL' in os.environ:
+      log_level = getattr(
+        _logging_module,
+        os.environ["RAINBOW_LEVEL"],
+        "DEBUG"
+      )
 
-    if 'RAINBOW_LOGGER_ON_ERROR' in os.environ and os.environ['RAINBOW_LOGGER_ON_ERROR'] == 'true':
-      log_level = _logging_module.ERROR
+    final_message = ""
 
-    if name is None:
-      _logging_module.basicConfig(format=final_message,
-                                  level=log_level)
-    else:
-      logger.addHandler(handler)
-      logger.setLevel(log_level)
+    # remove existing handlers
+    [logger.removeHandler(h) for h in logger.handlers]
 
-    if filepath and name:
-      handler = _logging_module.FileHandler(filepath)
-      _is_no_color = True
-      final_message = _get_message(no_time)
+    if not filepath and name:
+      handler = _logging_module.StreamHandler(sys.stdout)
+      final_message = _get_message(no_time, no_color)
       formatter = _logging_module.Formatter(final_message)
       handler.setFormatter(formatter)
+      handler.setLevel(log_level)
       logger.addHandler(handler)
+    elif filepath and name:
+      # console logs on critical
+      handler = _logging_module.StreamHandler()
+      final_message = _get_message(no_time, no_color)
+      formatter = _logging_module.Formatter(final_message)
+      handler.setFormatter(formatter)
+      handler.setLevel(_logging_module.CRITICAL)
+      logger.addHandler(handler)
+
+      handler = _logging_module.FileHandler(filepath)
+      final_message = _get_message(no_time, no_color)
+      formatter = _logging_module.Formatter(final_message)
+      handler.setFormatter(formatter)
+      handler.setLevel(log_level)
+      logger.addHandler(handler)
+
+    if not name:
+      final_message = _get_message(no_time, no_color)
+      config = {
+        "format": final_message,
+        "level": log_level,
+        "filemode": "a",
+      }
+
+      if filepath:
+        config["filename"] = filepath
+
+      _logging_module.basicConfig(**config)
 
     if get_logging:
       return _logging_module
 
     return logger
-
-def __init__():
-  return RainbowLogger
