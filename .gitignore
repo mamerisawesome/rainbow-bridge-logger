@@ -7,3 +7,6 @@ __pycache__
 
 # quick virtualenv location if needed
 py_modules
+
+# test log files
+*.log
