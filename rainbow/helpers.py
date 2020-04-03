@@ -1,13 +1,10 @@
 import os
 
+
 def _get_color(color=None):
   """Get color name from pre-defined color list"""
-  from .rainbow import _is_no_color
-  if 'RAINBOW_LOGGER_NO_COLOR' in os.environ and os.environ['RAINBOW_LOGGER_NO_COLOR'] == 'true':
-    return ''
-
-  if _is_no_color:
-    return ''
+  if color == False or os.environ.get('RAINBOW_LOGGER_NO_COLOR') or color == "":
+    return ""
 
   if color is None and not color:
     raise ValueError('Must have color code')
@@ -29,30 +26,46 @@ def _get_color(color=None):
 
   return colors[color]
 
-def _get_message(no_time=False):
+
+def _get_message(no_time=False, no_color=False):
   """Get message parts"""
-  time = '{}%(asctime)s{}'.format(_get_color('DARKGRAY'), _get_color('GREY'))
-  name = '{}%(name)-12s{}'.format(_get_color('PURPLE'), _get_color('GREY'))
+  time = '{}%(asctime)s{}'.format(
+    _get_color(not no_color and 'DARKGRAY'),
+    _get_color(not no_color and 'GREY')
+  )
+
+  name = '{}%(name)-12s{}'.format(
+    _get_color(not no_color and 'PURPLE'),
+    _get_color(not no_color and 'GREY')
+  )
+
   level = '%(levelname)-8s'
   message = '%(message)s'
 
-  if 'RAINBOW_LOGGER_NO_TIME' in os.environ and os.environ['RAINBOW_LOGGER_NO_TIME'] == 'true':
-    return ''
-
-  if no_time:
+  if os.environ.get('RAINBOW_LOGGER_NO_TIME') == "true" or no_time:
     return '{} {}\t{}'.format(name, level, message)
 
   return '{} {} {}\t{}'.format(time, name, level, message)
 
-def _set_level_format(level=None, color='WHITE', logging_module=None):
+
+def _set_level_format(level=None, color="", no_color=False, logging_module=None):
   """Set logging format based on level and color"""
   FORMAT = '{}{}{}'
+  LEVEL_MAPPING = {
+    10: "DEBUG",
+    20: "INFO",
+    30: "WARNING",
+    40: "ERROR",
+    50: "CRITICAL",
+  }
+
   _logging_module = logging_module
   parsed_format = FORMAT.format(
-    _get_color(color),
-    _logging_module.getLevelName(level),
-    _get_color('GREY')
+    _get_color(not no_color and color),
+    LEVEL_MAPPING[level],
+    _get_color(not no_color and 'GREY')
   )
+
 
   if level is not None:
     _logging_module.addLevelName(level, parsed_format)
